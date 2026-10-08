@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cyber Evidence Chain Tracker</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1120;
+            color: #e5e7eb;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #111827;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #263244;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .user {
+            color: #cbd5e1;
+        }
+
+        .logout {
+            color: #f87171;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #94a3b8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(190px, 1fr));
+
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid #263244;
+            border-radius: 12px;
+            padding: 25px;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #38bdf8;
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 8px;
+            color: #f8fafc;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+            font-size: 22px;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 18px;
+        }
+
+        .module {
+            background: #111827;
+            border: 1px solid #263244;
+            border-radius: 12px;
+            padding: 22px;
+            text-decoration: none;
+            color: #f8fafc;
+            transition: 0.2s;
+        }
+
+        .module:hover {
+            border-color: #38bdf8;
+            background: #172033;
+            transform: translateY(-3px);
+        }
+
+        .module-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .module-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .module-description {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            padding: 35px 10px;
+            margin-top: 30px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="logo">
+            🔐 Cyber Evidence Chain Tracker
+        </div>
+
+        <div class="user">
+
+            Welcome,
+            <strong>{{ session["username"] }}</strong>
+
+            <a
+                href="/logout"
+                class="logout"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+        <div class="welcome">
+
+            <h1>
+                Security Dashboard
+            </h1>
+
+            <p>
+                Digital Forensic Evidence Management System
+            </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📁
+                </div>
+
+                <div class="card-title">
+                    Total Cases
+                </div>
+
+                <div class="card-value">
+                    {{ total_cases }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔐
+                </div>
+
+                <div class="card-title">
+                    Total Evidence
+                </div>
+
+                <div class="card-value">
+                    {{ total_evidence }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔗
+                </div>
+
+                <div class="card-title">
+                    Custody Transfers
+                </div>
+
+                <div class="card-value">
+                    {{ total_custody }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🟢
+                </div>
+
+                <div class="card-title">
+                    Open Cases
+                </div>
+
+                <div class="card-value">
+                    {{ open_cases }}
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔴
+                </div>
+
+                <div class="card-title">
+                    Closed Cases
+                </div>
+
+                <div class="card-value">
+                    {{ closed_cases }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MODULES -->
+
+        <h2 class="section-title">
+            Project Modules
+        </h2>
+
+
+        <div class="modules">
+
+
+            <a
+                href="/cases"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    📁
+                </div>
+
+                <div class="module-title">
+                    Case Management
+                </div>
+
+                <div class="module-description">
+                    Create and manage forensic investigation cases.
+                </div>
+
+            </a>
+
+
+            <a
+                href="/add-case"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    ➕
+                </div>
+
+                <div class="module-title">
+                    Add New Case
+                </div>
+
+                <div class="module-description">
+                    Register a new digital forensic case.
+                </div>
+
+            </a>
+
+
+            <a
+                href="/evidence"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    🔐
+                </div>
+
+                <div class="module-title">
+                    Evidence Management
+                </div>
+
+                <div class="module-description">
+                    View and manage collected digital evidence.
+                </div>
+
+            </a>
+
+
+            <a
+                href="/add-evidence"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    📥
+                </div>
+
+                <div class="module-title">
+                    Add Evidence
+                </div>
+
+                <div class="module-description">
+                    Add new evidence with SHA-256 integrity data.
+                </div>
+
+            </a>
+
+
+            <a
+                href="/verify-evidence"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    🔎
+                </div>
+
+                <div class="module-title">
+                    Hash Verification
+                </div>
+
+                <div class="module-description">
+                    Verify evidence integrity using SHA-256.
+                </div>
+
+            </a>
+
+
+            <a
+                href="/custody"
+                class="module"
+            >
+
+                <div class="module-icon">
+                    🔗
+                </div>
+
+                <div class="module-title">
+                    Chain of Custody
+                </div>
+
+                <div class="module-description">
+                    Track every evidence transfer and handler.
+                </div>
+
+            </a>
+
+
+        </div>
+
+
+        <div class="footer">
+
+            Cyber Evidence Chain Tracker
+            <br>
+
+            Digital & Cyber Forensic Science Project
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

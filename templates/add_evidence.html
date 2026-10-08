@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Evidence - Cyber Evidence Tracker</title>
+</head>
+
+<body>
+
+<h1>Cyber Evidence Chain Tracker</h1>
+
+<h2>Add New Evidence</h2>
+
+<a href="/dashboard">Dashboard</a> |
+<a href="/evidence">Evidence List</a> |
+<a href="/cases">Cases</a> |
+<a href="/logout">Logout</a>
+
+<hr>
+
+<form method="POST">
+
+    <label>Case:</label><br>
+
+    <select name="case_id" required>
+
+        <option value="">-- Select Case --</option>
+
+        {% for case in cases %}
+
+        <option value="{{ case.id }}">
+            {{ case.case_number }} - {{ case.title }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+
+    <label>Evidence Type:</label><br>
+
+    <input
+        type="text"
+        name="evidence_type"
+        placeholder="Example: Email, Image, Document"
+        required
+    >
+
+    <br><br>
+
+
+    <label>Description:</label><br>
+
+    <textarea
+        name="description"
+        rows="5"
+        cols="50"
+        placeholder="Enter evidence description"
+        required
+    ></textarea>
+
+    <br><br>
+
+
+    <label>File Name:</label><br>
+
+    <input
+        type="text"
+        name="file_name"
+        placeholder="Example: suspicious_email.pdf"
+    >
+
+    <br><br>
+
+
+    <label>SHA-256 Hash:</label><br>
+
+    <input
+        type="text"
+        name="sha256_hash"
+        placeholder="Enter 64-character SHA-256 hash"
+        maxlength="64"
+    >
+
+    <br><br>
+
+
+    <label>Collected By:</label><br>
+
+    <input
+        type="text"
+        name="collected_by"
+        placeholder="Investigator name"
+        required
+    >
+
+    <br><br>
+
+
+    <label>Collected At:</label><br>
+
+    <input
+        type="datetime-local"
+        name="collected_at"
+        required
+    >
+
+    <br><br>
+
+
+    <button type="submit">
+        Add Evidence
+    </button>
+
+</form>
+
+</body>
+</html>

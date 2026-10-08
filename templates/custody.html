@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chain of Custody - Cyber Evidence Tracker</title>
+</head>
+
+<body>
+
+<h1>Cyber Evidence Chain Tracker</h1>
+
+<h2>🔗 Chain of Custody</h2>
+
+<a href="/dashboard">Dashboard</a> |
+<a href="/evidence">Evidence</a> |
+<a href="/verify-evidence">Hash Verification</a> |
+<a href="/logout">Logout</a>
+
+<hr>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p><strong>{{ message }}</strong></p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<h3>Add Custody Transfer</h3>
+
+<form method="POST">
+
+    <label>Select Evidence:</label><br>
+
+    <select name="evidence_id" required>
+
+        <option value="">-- Select Evidence --</option>
+
+        {% for evidence in evidence_list %}
+
+        <option value="{{ evidence.id }}">
+            ID {{ evidence.id }} -
+            {{ evidence.file_name }} -
+            {{ evidence.case_number }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>From Person:</label><br>
+
+    <input
+        type="text"
+        name="from_person"
+        placeholder="Example: Kamalesh"
+        required
+    >
+
+    <br><br>
+
+    <label>To Person:</label><br>
+
+    <input
+        type="text"
+        name="to_person"
+        placeholder="Example: Forensic Officer"
+        required
+    >
+
+    <br><br>
+
+    <label>Transfer Purpose:</label><br>
+
+    <input
+        type="text"
+        name="purpose"
+        placeholder="Example: Forensic examination"
+        size="50"
+        required
+    >
+
+    <br><br>
+
+    <label>Transfer Date & Time:</label><br>
+
+    <input
+        type="datetime-local"
+        name="transferred_at"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Add Custody Record
+    </button>
+
+</form>
+
+<hr>
+
+<h3>📋 Chain of Custody History</h3>
+
+{% if custody_list %}
+
+<table border="1" cellpadding="8">
+
+    <tr>
+        <th>ID</th>
+        <th>Evidence ID</th>
+        <th>Case Number</th>
+        <th>File Name</th>
+        <th>From Person</th>
+        <th>To Person</th>
+        <th>Purpose</th>
+        <th>Transferred At</th>
+    </tr>
+
+    {% for custody in custody_list %}
+
+    <tr>
+        <td>{{ custody.id }}</td>
+        <td>{{ custody.evidence_id }}</td>
+        <td>{{ custody.case_number }}</td>
+        <td>{{ custody.file_name }}</td>
+        <td>{{ custody.from_person }}</td>
+        <td>{{ custody.to_person }}</td>
+        <td>{{ custody.purpose }}</td>
+        <td>{{ custody.transferred_at }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% else %}
+
+<p>No Chain of Custody records found.</p>
+
+{% endif %}
+
+</body>
+</html>

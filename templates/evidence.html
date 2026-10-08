@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evidence - Cyber Evidence Tracker</title>
+</head>
+
+<body>
+
+<h1>Cyber Evidence Chain Tracker</h1>
+
+<h2>Evidence Management</h2>
+
+<a href="/dashboard">Dashboard</a> |
+<a href="/cases">Cases</a> |
+<a href="/logout">Logout</a>
+
+<hr>
+
+<table border="1" cellpadding="8">
+
+    <tr>
+        <th>ID</th>
+        <th>Case Number</th>
+        <th>Case Title</th>
+        <th>Evidence Type</th>
+        <th>Description</th>
+        <th>File Name</th>
+        <th>SHA-256 Hash</th>
+        <th>Collected By</th>
+        <th>Collected At</th>
+    </tr>
+
+    {% for evidence in evidence_list %}
+
+    <tr>
+
+        <td>{{ evidence.id }}</td>
+
+        <td>{{ evidence.case_number }}</td>
+
+        <td>{{ evidence.title }}</td>
+
+        <td>{{ evidence.evidence_type }}</td>
+
+        <td>{{ evidence.description }}</td>
+
+        <td>{{ evidence.file_name }}</td>
+
+        <td>{{ evidence.sha256_hash }}</td>
+
+        <td>{{ evidence.collected_by }}</td>
+
+        <td>{{ evidence.collected_at }}</td>
+
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="9">No evidence found.</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

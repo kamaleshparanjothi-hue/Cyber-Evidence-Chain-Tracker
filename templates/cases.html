@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cases - Cyber Evidence Tracker</title>
+</head>
+<body>
+
+<h1>Cyber Evidence Chain Tracker</h1>
+
+<h2>Case Management</h2>
+
+<a href="/dashboard">Dashboard</a> |
+<a href="/add-case">Add New Case</a> |
+<a href="/logout">Logout</a>
+
+<hr>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>ID</th>
+        <th>Case Number</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Created Date</th>
+    </tr>
+
+    {% for case in cases %}
+    <tr>
+        <td>{{ case.id }}</td>
+        <td>{{ case.case_number }}</td>
+        <td>{{ case.title }}</td>
+        <td>{{ case.description }}</td>
+        <td>{{ case.status }}</td>
+        <td>{{ case.created_at }}</td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="6">No cases found.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
